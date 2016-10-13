@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Context path='/retroVideo'>
+<Resource name='jdbc/retroVideo'
+type='javax.sql.DataSource'
+driverClassName='com.mysql.jdbc.Driver'
+url='jdbc:mysql://localhost/retroVideo?useSSL=false'
+username='cursist'
+password='cursist'
+closeMethod='close'/>
+</Context>
