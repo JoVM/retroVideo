@@ -12,7 +12,7 @@ import be.vdab.entities.Genre;
 public class GenreRepository extends AbstractRepository {
 	private static final String BEGIN_SELECT = "select id, naam from genres ";
 	private static final String FIND_ALL = BEGIN_SELECT + "order by naam";
-	//private static final String READ = BEGIN_SELECT + "where id=?";
+	// private static final String READ = BEGIN_SELECT + "where id=?";
 
 	public List<Genre> findAll() {
 		try (Connection connection = dataSource.getConnection();
@@ -20,7 +20,7 @@ public class GenreRepository extends AbstractRepository {
 				ResultSet resultSet = statement.executeQuery(FIND_ALL)) {
 			List<Genre> genres = new ArrayList<>();
 			while (resultSet.next()) {
-				genres.add(resultSetRijNaarPizza(resultSet));
+				genres.add(resultSetRijNaarGenre(resultSet));
 			}
 			return genres;
 		} catch (SQLException ex) {
@@ -28,7 +28,7 @@ public class GenreRepository extends AbstractRepository {
 		}
 	}
 
-	private Genre resultSetRijNaarPizza(ResultSet resultSet) throws SQLException {
+	private Genre resultSetRijNaarGenre(ResultSet resultSet) throws SQLException {
 		return new Genre(resultSet.getInt("id"), resultSet.getString("naam"));
 	}
 

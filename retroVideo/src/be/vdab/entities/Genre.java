@@ -9,8 +9,8 @@ public class Genre {
 	}
 
 	public Genre(int id, String naam) {
-		this.id = id;
-		this.naam = naam;
+		setId(id);
+		setNaam(naam);
 	}
 
 	public int getId() {
@@ -18,6 +18,9 @@ public class Genre {
 	}
 
 	public void setId(int id) {
+		if (id <= 0) {
+			throw new IllegalArgumentException("genre: id moet positief zijn.");
+		}
 		this.id = id;
 	}
 
@@ -26,6 +29,9 @@ public class Genre {
 	}
 
 	public void setNaam(String naam) {
+		if (naam == null || naam.isEmpty()) {
+			throw new IllegalArgumentException("genre: naam moet ingevuld zijn.");
+		}
 		this.naam = naam;
 	}
 

@@ -70,6 +70,10 @@ input[type='checkbox'] {
 	display: inline;
 }
 
+img {
+	float: left;
+}
+
 nav ul {
 	background-color: red;
 	padding: 0.4em 0;
