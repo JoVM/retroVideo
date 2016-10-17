@@ -35,6 +35,8 @@ public class FilmBestellenServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		request.setAttribute("film", filmRepository.read(id));
 		HttpSession session = request.getSession(false);
 		if (session != null) {
 			System.out.println("session: true");
@@ -42,14 +44,11 @@ public class FilmBestellenServlet extends HttpServlet {
 			Set<Integer> mandje = (Set<Integer>) session.getAttribute(MANDJE);
 			if (mandje != null) {
 				List<Film> filmsInMandje = new ArrayList<>();
-				for (Integer id : mandje) {
-					filmsInMandje.add(filmRepository.read(id));
+				for (Integer filmId : mandje) {
+					filmsInMandje.add(filmRepository.read(filmId));
 				}
 				request.setAttribute("filmsInMandje", filmsInMandje);
 			}
-		} else {
-			int id = Integer.parseInt(request.getParameter("id"));
-			request.setAttribute("film", filmRepository.read(id));
 		}
 		request.getRequestDispatcher(VIEW).forward(request, response);
 	}
