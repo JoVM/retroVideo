@@ -16,6 +16,29 @@ body {
 	width: 100%;
 }
 
+.simple {
+	margin: 5% auto;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	position: relative;
+	top: 5%;
+	left: 5%;
+	width: 100%;
+}
+
+.fancy {
+	margin: 30% auto;
+	padding: 0%;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	position: relative;
+	top: 5%;
+	left: 5%;
+	width: 100%;
+}
+
 dd, dt {
 	margin-left: 0;
 }
@@ -70,10 +93,6 @@ input[type='checkbox'] {
 	display: inline;
 }
 
-img {
-	float: left;
-}
-
 nav ul {
 	background-color: red;
 	padding: 0.4em 0;
@@ -116,4 +135,31 @@ ul.zebra li:nth-child(even) {
 
 ul.zebra li:nth-child(odd):hover, ul.zebra li:nth-child(even):hover {
 	background-color: #ccff00;
+}
+
+img {
+	float: left;
+}
+
+img.reeks  {
+	margin-left: 1%;
+	margin-top: 1%;
+	float: left;
+}
+
+img[title]:hover:after {
+	content: attr(title);
+	position: absolute;
+	font-size: 10px;
+	z-index: 999;
+	white-space: nowrap;
+	bottom: 9999px;
+	left: 50%;
+	background: #000;
+	color: #e0e0e0;
+	padding: 0px 7px;
+	line-height: 24px;
+	height: 24px;
+	opacity: 0;
+	transition: opacity 0.4s ease-out;
 }

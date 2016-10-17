@@ -13,7 +13,8 @@ import be.vdab.entities.Film;
 public class FilmRepository extends AbstractRepository {
 	private static final String BEGIN_SELECT = "select id, genreid, titel, voorraad, gereserveerd, prijs from films ";
 	private static final String FIND_ALL = BEGIN_SELECT + "order by titel";
-	private static final String READ = BEGIN_SELECT + "where genreid=?";
+	private static final String READ_GENRE = BEGIN_SELECT + "where genreid=?";
+	private static final String READ = BEGIN_SELECT + "where id=?";
 
 	public List<Film> findAll() {
 		try (Connection connection = dataSource.getConnection();
@@ -44,9 +45,9 @@ public class FilmRepository extends AbstractRepository {
 		}
 	}
 
-	public List<Film> findFilmById(int id) {
+	public List<Film> findFilmByGenreId(int id) {
 		try (Connection connection = dataSource.getConnection();
-				PreparedStatement statement = connection.prepareStatement(READ)) {
+				PreparedStatement statement = connection.prepareStatement(READ_GENRE)) {
 			List<Film> films = new ArrayList<>();
 			statement.setInt(1, id);
 			try (ResultSet resultSet = statement.executeQuery()) {

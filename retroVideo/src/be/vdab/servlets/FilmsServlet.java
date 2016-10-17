@@ -17,7 +17,7 @@ import be.vdab.repositories.GenreRepository;
  * Servlet implementation class kiesFilms
  */
 @WebServlet("/films.htm")
-public class kiesFilms extends HttpServlet {
+public class FilmsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VIEW = "/WEB-INF/JSP/films.jsp";
 	private final transient GenreRepository genreRepository = new GenreRepository();
@@ -31,7 +31,7 @@ public class kiesFilms extends HttpServlet {
 			throws ServletException, IOException {
 		request.setAttribute("genres", genreRepository.findAll());
 		int id = Integer.parseInt(request.getParameter("id"));
-		request.setAttribute("films", filmRepository.findFilmById(id));
+		request.setAttribute("films", filmRepository.findFilmByGenreId(id));
 		request.getRequestDispatcher(VIEW).forward(request, response);
 	}
 

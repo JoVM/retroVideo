@@ -3,11 +3,13 @@
 <header>
 	<nav>
 		<ul>
-			<c:forEach var='genre' items='${genres}'>
-				<li><c:url value='/films.htm' var='index'>
-						<c:param name='id' value="${genre.id}" />
-					</c:url> <a href="<c:out value='${index}'/>">${genre.naam}</a></li>
-			</c:forEach>
+			<c:if test='${not empty genres}'>
+				<c:forEach var='genre' items='${genres}' varStatus='status'>
+					<li><c:url value='/films.htm' var='index'>
+							<c:param name='id' value="${genre.id}" />
+						</c:url> <a href="<c:out value='${index}'/>">${genre.naam}</a></li>
+				</c:forEach>
+			</c:if>
 		</ul>
 	</nav>
 </header>
