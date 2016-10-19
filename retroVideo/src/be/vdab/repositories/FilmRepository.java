@@ -15,6 +15,19 @@ public class FilmRepository extends AbstractRepository {
 	private static final String FIND_ALL = BEGIN_SELECT + "order by titel";
 	private static final String READ_GENRE = BEGIN_SELECT + "where genreid=?";
 	private static final String READ = BEGIN_SELECT + "where id=?";
+	private static final String UPDATE_GERESERVEERD = "update films set gereserveerd = gereserveerd + 1 where id = ?";
+
+	public void updateGereserveerd(int id) {
+		try (Connection connection = dataSource.getConnection();
+				PreparedStatement statement = connection.prepareStatement(UPDATE_GERESERVEERD,
+						Statement.NO_GENERATED_KEYS)) {
+			connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+			statement.setInt(1, id);
+			statement.executeUpdate();
+		} catch (SQLException ex) {
+			throw new RepositoryException(ex);
+		}
+	}
 
 	public List<Film> findAll() {
 		try (Connection connection = dataSource.getConnection();

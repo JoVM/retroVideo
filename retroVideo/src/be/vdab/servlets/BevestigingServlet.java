@@ -1,6 +1,8 @@
 package be.vdab.servlets;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import be.vdab.entities.Film;
+import be.vdab.entities.Reservatie;
 import be.vdab.repositories.FilmRepository;
 import be.vdab.repositories.KlantenRepository;
 import be.vdab.repositories.ReservatieRepository;
@@ -27,7 +30,7 @@ public class BevestigingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String VIEW = "/WEB-INF/JSP/bevestiging.jsp";
 	private static final String MANDJE = "mandje";
-	private static final String REDIRECT_VIEW = "/WEB-INF/JSP/rapport.jsp";
+	private static final String REDIRECT_URL = "%s/rapport.htm";
 	private final transient KlantenRepository klantenRepository = new KlantenRepository();
 	private final transient ReservatieRepository reservatieRepository = new ReservatieRepository();
 	private final transient FilmRepository filmRepository = new FilmRepository();
@@ -59,8 +62,8 @@ public class BevestigingServlet extends HttpServlet {
 			throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		Map<String, String> fouten = new HashMap<>();
-		int id = Integer.parseInt(request.getParameter("id"));
-		request.setAttribute("klant", klantenRepository.read(id));
+		int klantid = Integer.parseInt(request.getParameter("id"));
+		request.setAttribute("klant", klantenRepository.read(klantid));
 		if (session != null) {
 			@SuppressWarnings("unchecked")
 			Set<Integer> mandje = (Set<Integer>) session.getAttribute(MANDJE);
@@ -69,15 +72,23 @@ public class BevestigingServlet extends HttpServlet {
 					for (Integer filmId : mandje) {
 						Film film = filmRepository.read(filmId);
 						if (film.isBeschikbaar()) {
-
+							reservatieRepository.voegReservatieToe(new Reservatie(klantid, film.getId(),
+									new Date(Calendar.getInstance().getTime().getTime())));
+							filmRepository.updateGereserveerd(film.getId());
+						} else {
+							fouten.put(film.getTitel(), "Reservatie van: " + film.getTitel() + " is mislukt");
 						}
 					}
 				}
 			}
 		}
 		if (fouten.isEmpty()) {
-			
+			if (session != null) {
+				session.invalidate();
+			}
+			response.sendRedirect(String.format(REDIRECT_URL, request.getContextPath()));
 		} else {
+			request.setAttribute("fouten", fouten);
 			doGet(request, response);
 		}
 	}

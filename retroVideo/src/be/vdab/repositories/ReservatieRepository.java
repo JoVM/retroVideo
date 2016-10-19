@@ -16,6 +16,21 @@ public class ReservatieRepository extends AbstractRepository {
 	private static final String FIND_ALL = BEGIN_SELECT + "order by reservatieDatum";
 	private static final String READ_DATUM = BEGIN_SELECT + "where reservatieDatum=?";
 	private static final String READ = BEGIN_SELECT + "where id=?";
+	private static final String INSERT_RESERVATIE = "insert into reservaties(klantid, filmid, reservatieDatum) values (?, ?, ?)";
+
+	public void voegReservatieToe(Reservatie reservatie) {
+		try (Connection connection = dataSource.getConnection();
+				PreparedStatement statement = connection.prepareStatement(INSERT_RESERVATIE,
+						Statement.NO_GENERATED_KEYS)) {
+			connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+			statement.setInt(1, reservatie.getKlantid());
+			statement.setInt(2, reservatie.getFilmid());
+			statement.setDate(3, reservatie.getReservatieDatum());
+			statement.executeUpdate();
+		} catch (SQLException ex) {
+			throw new RepositoryException(ex);
+		}
+	}
 
 	public List<Reservatie> findAll() {
 		try (Connection connection = dataSource.getConnection();

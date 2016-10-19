@@ -20,10 +20,15 @@
 	</c:url>
 	<a href="<c:out value='${klanten}'/>">Klant</a>
 	<h2>Bevestigen</h2>
-	<div>${aantalitems}&nbspfilm(s) voor
+	<div>${aantalitems}&nbspfilm(s)voor
 		${klant.voornaam}&nbsp${klant.familienaam}</div>
 	<form method='post' id='bevestigform'>
 		<input type='submit' value='Bevestigen' id='bevestigknop'>
 	</form>
+	<c:if test='${not empty fouten}'>
+		<c:forEach var='fout' items='${fouten}'>
+				<span>${fout.value}</span>
+		</c:forEach>
+	</c:if>
 </body>
 </html>

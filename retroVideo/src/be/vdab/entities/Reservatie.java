@@ -13,7 +13,9 @@ public class Reservatie {
 	}
 
 	public Reservatie(int klantid, int filmid, Date reservatieDatum) {
-
+		setFilmid(filmid);
+		setKlantid(klantid);
+		setReservatieDatum(reservatieDatum);
 	}
 
 	public int getKlantid() {
