@@ -1,9 +1,8 @@
 package be.vdab.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
@@ -17,15 +16,20 @@ import javax.sql.DataSource;
 
 import be.vdab.entities.Film;
 import be.vdab.repositories.FilmRepository;
+import be.vdab.repositories.KlantenRepository;
+import be.vdab.repositories.ReservatieRepository;
 
 /**
- * Servlet implementation class VulMandjeServlet
+ * Servlet implementation class BevestigingServlet
  */
-@WebServlet("/mandje.htm")
-public class VulMandjeServlet extends HttpServlet {
+@WebServlet("/bevestiging.htm")
+public class BevestigingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String VIEW = "/WEB-INF/JSP/mandje.jsp";
+	private static final String VIEW = "/WEB-INF/JSP/bevestiging.jsp";
 	private static final String MANDJE = "mandje";
+	private static final String REDIRECT_VIEW = "/WEB-INF/JSP/rapport.jsp";
+	private final transient KlantenRepository klantenRepository = new KlantenRepository();
+	private final transient ReservatieRepository reservatieRepository = new ReservatieRepository();
 	private final transient FilmRepository filmRepository = new FilmRepository();
 
 	/**
@@ -35,15 +39,13 @@ public class VulMandjeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
+		int id = Integer.parseInt(request.getParameter("id"));
+		request.setAttribute("klant", klantenRepository.read(id));
 		if (session != null) {
 			@SuppressWarnings("unchecked")
 			Set<Integer> mandje = (Set<Integer>) session.getAttribute(MANDJE);
 			if (mandje != null) {
-				List<Film> filmsInMandje = new ArrayList<>();
-				for (Integer filmId : mandje) {
-					filmsInMandje.add(filmRepository.read(filmId));
-				}
-				request.setAttribute("filmsInMandje", filmsInMandje);
+				request.setAttribute("aantalitems", mandje.size());
 			}
 		}
 		request.getRequestDispatcher(VIEW).forward(request, response);
@@ -55,23 +57,35 @@ public class VulMandjeServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (request.getParameterValues("id") != null) {
-			HttpSession session = request.getSession();
+		HttpSession session = request.getSession(false);
+		Map<String, String> fouten = new HashMap<>();
+		int id = Integer.parseInt(request.getParameter("id"));
+		request.setAttribute("klant", klantenRepository.read(id));
+		if (session != null) {
 			@SuppressWarnings("unchecked")
 			Set<Integer> mandje = (Set<Integer>) session.getAttribute(MANDJE);
-			if (mandje == null) {
-				mandje = new LinkedHashSet<>();
+			if (mandje != null) {
+				if (mandje.size() != 0) {
+					for (Integer filmId : mandje) {
+						Film film = filmRepository.read(filmId);
+						if (film.isBeschikbaar()) {
+
+						}
+					}
+				}
 			}
-			for (String id : request.getParameterValues("id")) {
-				mandje.remove(Integer.parseInt(id));
-			}
-			session.setAttribute(MANDJE, mandje);
 		}
-		response.sendRedirect(response.encodeRedirectURL(request.getRequestURI()));
+		if (fouten.isEmpty()) {
+			
+		} else {
+			doGet(request, response);
+		}
 	}
 
-	@Resource(name = FilmRepository.JNDI_NAME)
+	@Resource(name = KlantenRepository.JNDI_NAME)
 	void setDataSource(DataSource dataSource) {
+		klantenRepository.setDataSource(dataSource);
+		reservatieRepository.setDataSource(dataSource);
 		filmRepository.setDataSource(dataSource);
 	}
 

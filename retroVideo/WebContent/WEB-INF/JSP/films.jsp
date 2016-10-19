@@ -4,7 +4,7 @@
 <html>
 <head>
 <c:import url='/WEB-INF/JSP/head.jsp'>
-	<c:param name='title' value='RetroVideo' />
+	<c:param name='title' value='Films' />
 </c:import>
 </head>
 <body>

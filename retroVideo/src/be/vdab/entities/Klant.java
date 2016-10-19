@@ -13,7 +13,12 @@ public class Klant {
 	}
 
 	public Klant(int id, String familienaam, String voornaam, String straatNummer, String postcode, String gemeente) {
-
+		setFamilienaam(familienaam);
+		setGemeente(gemeente);
+		setId(id);
+		setPostcode(postcode);
+		setStraatNummer(straatNummer);
+		setVoornaam(voornaam);
 	}
 
 	public int getId() {
@@ -80,6 +85,10 @@ public class Klant {
 			throw new IllegalArgumentException("klant: gemeente moet ingevuld zijn.");
 		}
 		this.gemeente = gemeente;
+	}
+
+	public static boolean isNaamValid(String naam) {
+		return naam != null && !naam.isEmpty() && !naam.contains("*");
 	}
 
 }

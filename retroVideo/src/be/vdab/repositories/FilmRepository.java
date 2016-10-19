@@ -34,6 +34,7 @@ public class FilmRepository extends AbstractRepository {
 		try (Connection connection = dataSource.getConnection();
 				PreparedStatement statement = connection.prepareStatement(READ)) {
 			statement.setInt(1, id);
+			connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
 			try (ResultSet resultSet = statement.executeQuery()) {
 				if (resultSet.next()) {
 					return resultSetRijNaarFilm(resultSet);
@@ -50,6 +51,7 @@ public class FilmRepository extends AbstractRepository {
 				PreparedStatement statement = connection.prepareStatement(READ_GENRE)) {
 			List<Film> films = new ArrayList<>();
 			statement.setInt(1, id);
+			connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);
 			try (ResultSet resultSet = statement.executeQuery()) {
 				while (resultSet.next()) {
 					films.add(resultSetRijNaarFilm(resultSet));

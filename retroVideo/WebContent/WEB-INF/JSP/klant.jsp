@@ -4,8 +4,9 @@
 <!doctype html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<c:import url='/WEB-INF/JSP/head.jsp'>
+	<c:param name='title' value='Klanten' />
+</c:import>
 </head>
 <body>
 	<c:url value='/index.htm' var='index'>
@@ -17,9 +18,29 @@
 	<a href="<c:out value='${mandje}'/>">Mandje</a>
 	<h2>Klant</h2>
 	<form method='post' id='zoekform'>
-		Familienaam bevat:<span>${fouten.naam}</span> <br> <input
-			name='naam' value='${param.naam}' autofocus required> <br>
-		<input type='submit' value='Zoeken' id='zoekknop'>
+		Familienaam bevat: <br> <input name='naam' value='${param.naam}'
+			autofocus><span>${fouten.naam}</span> <br> <input
+			type='submit' value='Zoeken' id='zoekknop'>
 	</form>
+	<c:if test='${not empty klanten}'>
+		<table>
+			<tr>
+				<th>Naam</th>
+				<th>Straat-HuisNummer</th>
+				<th>Postcode</th>
+				<th>Gemeente</th>
+			</tr>
+			<c:forEach var='klant' items='${klanten}'>
+				<tr>
+					<td><c:url value='/bevestiging.htm' var='index'>
+							<c:param name='id' value="${klant.id}" />
+						</c:url> <a href="<c:out value='${index}'/>">${klant.voornaam}&nbsp${klant.familienaam}</a></td>
+					<td>${klant.straatNummer}</td>
+					<td>${klant.postcode}</td>
+					<td>${klant.gemeente}</td>
+				</tr>
+			</c:forEach>
+		</table>
+	</c:if>
 </body>
 </html>

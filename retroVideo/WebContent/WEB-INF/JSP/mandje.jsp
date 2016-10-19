@@ -4,8 +4,9 @@
 <!doctype html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<c:import url='/WEB-INF/JSP/head.jsp'>
+	<c:param name='title' value='Mandje' />
+</c:import>
 </head>
 <body>
 	<c:url value='/index.htm' var='index'>

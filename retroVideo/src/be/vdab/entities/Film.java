@@ -85,4 +85,11 @@ public class Film {
 		this.prijs = prijs;
 	}
 
+	public boolean isBeschikbaar() {
+		if (voorraad - gereserveerd > 0) {
+			return true;
+		}
+		return false;
+	}
+
 }
