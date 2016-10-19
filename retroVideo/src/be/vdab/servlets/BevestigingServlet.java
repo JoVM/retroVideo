@@ -89,7 +89,7 @@ public class BevestigingServlet extends HttpServlet {
 			response.sendRedirect(String.format(REDIRECT_URL, request.getContextPath()));
 		} else {
 			request.setAttribute("fouten", fouten);
-			doGet(request, response);
+			response.sendRedirect(response.encodeRedirectURL(request.getRequestURI()));
 		}
 	}
 
