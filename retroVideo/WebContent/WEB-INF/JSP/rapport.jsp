@@ -9,10 +9,13 @@
 </c:import>
 </head>
 <body>
-	<c:url value='/index.htm' var='index'>
-	</c:url>
-	<a href="<c:out value='${index}'/>">Reserveren</a>
-	<h2>Rapport</h2>
-	<h3>De reservatie is OK</h3>
+	<nav>
+		<ul>
+			<li><c:url value='/index.htm' var='index'>
+				</c:url> <a href="<c:out value='${index}'/>">Reserveren</a></li>
+				</ul>
+	</nav>
+			<h2>Rapport</h2>
+			<h3>De reservatie is OK</h3>
 </body>
 </html>

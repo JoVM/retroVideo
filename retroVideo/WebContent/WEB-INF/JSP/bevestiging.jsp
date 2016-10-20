@@ -9,25 +9,27 @@
 </c:import>
 </head>
 <body>
-	<c:url value='/index.htm' var='index'>
-		<c:param name='id' value="${film.id}" />
-	</c:url>
-	<a href="<c:out value='${index}'/>">Reserveren</a>
-	<c:url value='/mandje.htm' var='mandje'>
-	</c:url>
-	<a href="<c:out value='${mandje}'/>">Mandje</a>
-	<c:url value='/klanten.htm' var='klanten'>
-	</c:url>
-	<a href="<c:out value='${klanten}'/>">Klant</a>
+	<nav>
+		<ul>
+			<li><c:url value='/index.htm' var='index'>
+					<c:param name='id' value="${film.id}" />
+				</c:url> <a href="<c:out value='${index}'/>">Reserveren</a></li>
+			<li><c:url value='/mandje.htm' var='mandje'>
+				</c:url> <a href="<c:out value='${mandje}'/>">Mandje</a></li>
+			<li><c:url value='/klanten.htm' var='klanten'>
+				</c:url> <a href="<c:out value='${klanten}'/>">Klant</a></li>
+		</ul>
+	</nav>
 	<h2>Bevestigen</h2>
 	<div>${aantalitems}&nbspfilm(s)voor
 		${klant.voornaam}&nbsp${klant.familienaam}</div>
 	<form method='post' id='bevestigform'>
-		<input type='submit' value='Bevestigen' id='bevestigknop'>
+		<input type="hidden" name="id" value="${klant.id}"> <input
+			type='submit' value='Bevestigen' id='bevestigknop'>
 	</form>
 	<c:if test='${not empty fouten}'>
 		<c:forEach var='fout' items='${fouten}'>
-				<span>${fout.value}</span>
+			<span>${fout.value}</span>
 		</c:forEach>
 	</c:if>
 </body>

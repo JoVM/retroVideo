@@ -63,7 +63,6 @@ public class BevestigingServlet extends HttpServlet {
 		HttpSession session = request.getSession(false);
 		Map<String, String> fouten = new HashMap<>();
 		int klantid = Integer.parseInt(request.getParameter("id"));
-		request.setAttribute("klant", klantenRepository.read(klantid));
 		if (session != null) {
 			@SuppressWarnings("unchecked")
 			Set<Integer> mandje = (Set<Integer>) session.getAttribute(MANDJE);
@@ -80,6 +79,7 @@ public class BevestigingServlet extends HttpServlet {
 						}
 					}
 				}
+				request.setAttribute("aantalitems", mandje.size());
 			}
 		}
 		if (fouten.isEmpty()) {
@@ -89,7 +89,8 @@ public class BevestigingServlet extends HttpServlet {
 			response.sendRedirect(String.format(REDIRECT_URL, request.getContextPath()));
 		} else {
 			request.setAttribute("fouten", fouten);
-			response.sendRedirect(response.encodeRedirectURL(request.getRequestURI()));
+			request.setAttribute("klant", klantenRepository.read(klantid));
+			request.getRequestDispatcher(VIEW).forward(request, response);
 		}
 	}
 

@@ -9,13 +9,15 @@
 </c:import>
 </head>
 <body>
-	<c:url value='/index.htm' var='index'>
-		<c:param name='id' value="${film.id}" />
-	</c:url>
-	<a href="<c:out value='${index}'/>">Reserveren</a>
-	<c:url value='/mandje.htm' var='mandje'>
-	</c:url>
-	<a href="<c:out value='${mandje}'/>">Mandje</a>
+	<nav>
+		<ul>
+			<li><c:url value='/index.htm' var='index'>
+					<c:param name='id' value="${film.id}" />
+				</c:url> <a href="<c:out value='${index}'/>">Reserveren</a></li>
+			<li><c:url value='/mandje.htm' var='mandje'>
+				</c:url> <a href="<c:out value='${mandje}'/>">Mandje</a></li>
+		</ul>
+	</nav>
 	<h2>Klant</h2>
 	<form method='post' id='zoekform'>
 		Familienaam bevat: <br> <input name='naam' value='${param.naam}'
@@ -32,9 +34,9 @@
 			</tr>
 			<c:forEach var='klant' items='${klanten}'>
 				<tr>
-					<td><c:url value='/bevestiging.htm' var='index'>
+					<td><c:url value='/bevestiging.htm' var='bevestiging'>
 							<c:param name='id' value="${klant.id}" />
-						</c:url> <a href="<c:out value='${index}'/>">${klant.voornaam}&nbsp${klant.familienaam}</a></td>
+						</c:url> <a href="<c:out value='${bevestiging}'/>">${klant.voornaam}&nbsp${klant.familienaam}</a></td>
 					<td>${klant.straatNummer}</td>
 					<td>${klant.postcode}</td>
 					<td>${klant.gemeente}</td>

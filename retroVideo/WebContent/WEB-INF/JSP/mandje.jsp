@@ -9,12 +9,16 @@
 </c:import>
 </head>
 <body>
-	<c:url value='/index.htm' var='index'>
-	</c:url>
-	<a href="<c:out value='${index}'/>">Reserveren</a>
-	<c:url value='/klanten.htm' var='klanten'>
-	</c:url>
-	<a href="<c:out value='${klanten}'/>">Klant</a>
+	<nav>
+		<ul>
+			<li><c:url value='/index.htm' var='index'>
+			</c:url>
+			<a href="<c:out value='${index}'/>">Reserveren</a></li>
+			<li><c:url value='/klanten.htm' var='klanten'>
+			</c:url>
+			<a href="<c:out value='${klanten}'/>">Klant</a></li>
+		</ul>
+	</nav>
 	<h2>Mandje</h2>
 	<c:if test='${not empty filmsInMandje}'>
 		<form method='post' id='bestelform'>

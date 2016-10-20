@@ -9,10 +9,13 @@
 </c:import>
 </head>
 <body>
-	<c:url value='/index.htm' var='index'>
-		<c:param name='id' value="${film.id}" />
-	</c:url>
-	<a href="<c:out value='${index}'/>">Reserveren</a>
+	<nav>
+		<ul>
+			<li><c:url value='/index.htm' var='index'>
+					<c:param name='id' value="${film.id}" />
+				</c:url> <a href="<c:out value='${index}'/>">Reserveren</a></li>
+		</ul>
+	</nav>
 	<c:if test='${film != null}'>
 		<div class=simple>
 			<h2>${film.titel}</h2>

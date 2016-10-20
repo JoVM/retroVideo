@@ -39,10 +39,6 @@ body {
 	width: 100%;
 }
 
-dd, dt {
-	margin-left: 0;
-}
-
 dt {
 	margin-top: 1%;
 }
@@ -141,7 +137,7 @@ img {
 	float: left;
 }
 
-img.reeks  {
+img.reeks {
 	margin-left: 1%;
 	margin-top: 1%;
 	float: left;
