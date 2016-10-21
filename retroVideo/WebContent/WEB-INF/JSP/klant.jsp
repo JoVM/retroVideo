@@ -20,8 +20,8 @@
 	</nav>
 	<h2>Klant</h2>
 	<form method='post' id='zoekform'>
-		Familienaam bevat: <br> <input name='naam' value='${param.naam}'
-			autofocus><span>${fouten.naam}</span> <br> <input
+		<label>Familienaam bevat:<span>${fouten.naam}</span> <input name='naam' value='${param.naam}'
+			autofocus></label> <br> <input
 			type='submit' value='Zoeken' id='zoekknop'>
 	</form>
 	<c:if test='${not empty klanten}'>

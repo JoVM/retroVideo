@@ -71,7 +71,6 @@ public class BevestigingServlet extends HttpServlet {
 					for (Integer filmId : mandje) {
 						Film film = filmRepository.read(filmId);
 						if (film.isBeschikbaar()) {
-							System.out.println(Calendar.getInstance().getTimeInMillis());
 							reservatieRepository.voegReservatieToe(new Reservatie(klantid, film.getId(),
 									new Date(Calendar.getInstance().getTimeInMillis())));
 							filmRepository.updateGereserveerd(film.getId());
@@ -79,13 +78,15 @@ public class BevestigingServlet extends HttpServlet {
 							fouten.put(film.getTitel(), "Reservatie van: " + film.getTitel() + " is mislukt");
 						}
 					}
+				} else {
+					request.setAttribute("aantalitems", 0);
+					fouten.put("mandje", "mandje is leeg");
 				}
-				request.setAttribute("aantalitems", mandje.size());
 			}
 			session.invalidate();
 		} else {
 			request.setAttribute("aantalitems", 0);
-			fouten.put("mandje", "mandje is leeg");
+			fouten.put("session", "mandje is leeg");
 		}
 		if (fouten.isEmpty()) {
 			response.sendRedirect(String.format(REDIRECT_URL, request.getContextPath()));

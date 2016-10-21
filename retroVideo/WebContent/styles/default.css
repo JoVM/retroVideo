@@ -17,7 +17,8 @@ body {
 }
 
 .simple {
-	margin: 5% auto;
+	margin-left: auto;
+	margin-right: auto;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
@@ -28,7 +29,9 @@ body {
 }
 
 .fancy {
-	margin: 20% auto;
+	margin-top: 25%;
+	margin-left: auto;
+	margin-right: auto;
 	padding: 0%;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -134,13 +137,23 @@ ul.zebra li:nth-child(odd):hover, ul.zebra li:nth-child(even):hover {
 }
 
 img {
+	display: block;
 	float: left;
+	border: 1px solid #ccc;
 }
 
-img.reeks {
-	margin-left: 1%;
-	margin-top: 1%;
-	float: left;
+a img {
+	display: block;
+	width: auto;
+	height: auto;
+	margin: 1% 1% 1% 1%; 
+	-webkit-transition-property : width, height;
+	-webkit-transition-duration: 300ms;
+	-moz-transition-property: width, height;
+	-moz-transition-duration: 300ms;
+	-o-transition-property: width, height;
+	-o-transition-duration: 300ms;
+	position: relative;
 }
 
 img[title]:hover:after {

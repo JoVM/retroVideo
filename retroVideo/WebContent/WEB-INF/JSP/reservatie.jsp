@@ -17,12 +17,13 @@
 		</ul>
 	</nav>
 	<c:if test='${film != null}'>
-		<div class=simple>
+		<div class="simple">
 			<h2>${film.titel}</h2>
 			<img src='<c:url value="/images/${film.id}.jpg"/>'
 				alt='${film.titel}'>
 		</div>
-		<div class=fancy>
+		<br>
+		<div class="fancy">
 			<dl>
 				<dt>Prijs</dt>
 				<dd>${film.prijs}&euro;</dd>

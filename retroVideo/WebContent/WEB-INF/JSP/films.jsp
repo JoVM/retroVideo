@@ -14,7 +14,7 @@
 			<c:url value='/reservatie.htm' var='index'>
 				<c:param name='id' value="${film.id}" />
 			</c:url>
-			<a href="<c:out value='${index}'/>"> <img class='reeks'
+			<a href="<c:out value='${index}'/>"> <img
 				title='${film.gereserveerd == film.voorraad ? "reservatie niet mogelijk" : "reservatie mogelijk"}'
 				src='<c:url value="/images/${film.id}.jpg"/>' alt='${film.titel}'>
 			</a>
