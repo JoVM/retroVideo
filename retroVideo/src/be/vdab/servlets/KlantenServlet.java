@@ -32,6 +32,15 @@ public class KlantenServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.getRequestDispatcher(VIEW).forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		List<Klant> klanten = new ArrayList<>();
 		Map<String, String> fouten = new HashMap<>();
 		String naam = request.getParameter("naam");
@@ -45,15 +54,6 @@ public class KlantenServlet extends HttpServlet {
 			request.setAttribute("fouten", fouten);
 		}
 		request.getRequestDispatcher(VIEW).forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 	@Resource(name = KlantenRepository.JNDI_NAME)
